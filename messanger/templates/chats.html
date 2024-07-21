@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chats</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Chats</h1>
+        <div>
+            {%for chat in chats%}
+            <a href= {% url 'create_message' chat.id %}><h1>{{chat.name}}</h1></a>
+            {%endfor%}
+        </div>
+        <div class='groups'>
+            <a href = {% url 'groups' %}>Check All Groups</a>
+        </div>
+</body>
+</html>

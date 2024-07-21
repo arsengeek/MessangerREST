@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Group Chat</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>Group Chat  "{{room}}" 
+
+        </h2> 
+
+        {%for message in messages%}
+        {%if message.room_id == room.id %}
+        <h5 class='autor'>{{message.sender}}</h5>
+        <h3 class='message'>{{message.text}}<br></h3>
+        {%endif%}
+        {%endfor%}
+        {% comment %} <a href= {% url 'add_user_to_room' %}>Add Member</a><br> {% endcomment %}
+
+        <h3>All Members</h3>
+        {% for member in room.members.all %}
+            <h3>{{ member.name.username }}<br></h3>
+        {% endfor %}
+    </form>
+
+    <a href ="{% url 'create_message' room.id%}">Create Message<a/>

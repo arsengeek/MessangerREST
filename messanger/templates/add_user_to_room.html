@@ -1,0 +1,13 @@
+<html>
+<head>
+    <title>Add User to Room</title>
+</head>
+<body>
+    <h2>Add User to Room</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add</button>
+    </form>
+</body>
+</html>

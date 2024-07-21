@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Messenger List</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>User Messenger List</h1>
+        <div>
+            <form action='' method="post" enctype="multipart/form-data" >
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" value='profil'>Send</button>
+            </form>
+            {% if form.instance.image %}
+            <img src="{{ form.instance.image.url }}" alt="Profile Image" style="max-width: 200px;">
+            {% endif %}
+        </div>
+</body>
+</html>

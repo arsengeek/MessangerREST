@@ -1,0 +1,56 @@
+img {
+    width: 20vw;
+    height: 20vw;
+}
+body {
+    background-color: black;
+    color: white;
+}
+
+.message {
+    
+    width: 10vw;
+    margin-right: 1vw;
+    background-color: white;
+    color: black
+}
+
+.autor {
+    position:absolute;
+    width: 10vw;
+    background-color: white;
+    color: black
+}
+.members {
+    position: fixed; 
+    width: 5vw;
+    height: 20vw;
+    bottom: 30vw;
+    right: 10vw; 
+    color: white;
+}
+.addmember {
+    position: fixed; 
+    font-size: 1vw;
+    width: 5vw;
+    height: 20vw;
+    bottom: 28vw;
+    right: 3vw; 
+    color: rgb(48, 12, 255);
+}
+a {
+    font-size:1vw ;
+}
+.groups {
+    position: fixed;
+    font-size: 1vw;
+    width: 5vw;
+    height: 5vw;
+    color: white;
+    right: 5vw;
+    bottom: 37vw;
+}
+.connected {
+    font-size: 3vw;
+    color: white;
+}

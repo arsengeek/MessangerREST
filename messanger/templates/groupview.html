@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Groups</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h2>All Groups</h2>
+    
+    {% for room in rooms %}
+        <a href="{% url 'create_message' room.id %}">{{ room.name }}<br><br></a>
+    {% endfor %}
+
+</body>
+</html>
