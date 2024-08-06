@@ -5,12 +5,34 @@ class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ['text']
-        
-class ProfilUpdate(forms.ModelForm):
+
+class UserMessangerUpdateForm(forms.ModelForm):
+    username = forms.CharField(max_length=150, required=False)
+
+
     class Meta:
         model = UserMessanger
-        fields = ['name', 'image']
+        fields = ['image']  
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)  
+        super().__init__(*args, **kwargs)
+        if user:
+            self.fields['username'].initial = user.username
+
+
+    def save(self, commit=True):
+        user = User.objects.get(pk=self.instance.name.id)
+        user.username = self.cleaned_data['username']
         
+        if commit:
+            user.save()
+            user_messanger = super().save(commit=False)
+            user_messanger.name = user
+            if commit:
+                user_messanger.save()
+        return user_messanger
+
 class CreateGroup(forms.ModelForm):
     class Meta:
         model = Room

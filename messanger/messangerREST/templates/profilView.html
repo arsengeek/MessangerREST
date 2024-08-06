@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+        <div>
+            You Name {{user.username}}
+            You Photo <img class='image' src = "{{user_messanger.image}}">
+        </div>
+</body>
+</html>

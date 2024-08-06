@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import UpdateView,CreateView, ListView, FormView
+from django.views.generic import UpdateView,CreateView, ListView, FormView, DetailView
 from .models import UserMessanger, Message, Room
-from .forms import MessageForm, ProfilUpdate, CreateGroup
+from .forms import MessageForm, UserMessangerUpdateForm, CreateGroup
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.urls import reverse_lazy
@@ -13,19 +13,38 @@ from django.shortcuts import render, get_object_or_404
 
 class Profil(LoginRequiredMixin, UpdateView):
     permission_required = ('ModalsDateBase.change_post')
-    form_class = ProfilUpdate
+    form_class = UserMessangerUpdateForm
     model = UserMessanger
     template_name = 'profil.html'
     
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.room = UserMessanger.objects.get(pk=self.kwargs['pk'])
         context['pk'] = self.kwargs['pk']
         return context
+
+    def get_object(self, queryset=None):
+        user = self.request.user
+        return UserMessanger.objects.get(name=user)  
+
+    def get_success_url(self):
+        return '/messanger/home/'
     
-    def __str__(self):
-        return self.name
-    
+class ProfilView(LoginRequiredMixin, DetailView):
+    model = UserMessanger
+    template_name = 'profilView.html'
+    context_object_name = 'user_messanger'
+
+    def get_object(self, queryset=None):
+        user = self.request.user
+
+        return UserMessanger.objects.get(name=user)
+
+
 class MessageCreateView(LoginRequiredMixin, CreateView):
     model = Message
     form_class = MessageForm
@@ -59,14 +78,15 @@ class ChatsList(ListView):
     context_object_name = 'chats'
     paginate_by=15
     
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     return self.form.qs
+    def get_queryset(self):
+        return super().get_queryset()
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     return context
-    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['usermessanger'] = UserMessanger.objects.get(name_id=self.request.user.id)
+        
+        return context
     
 class MessageList(ListView):
     model = Message

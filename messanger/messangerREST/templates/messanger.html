@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Group Chat</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'js/script.js' %}" defer></script>
+</head>
+<body>
+    <h2>Group Chat "{{ room }}"</h2> 
+    <p id="roomId">{{ room.id }}</p>
+    <div id="messages">
+        {% for message in messages %}
+            <div class='message'>
+                <h5 class='author'>{{ message.sender.username }}</h5>
+                <p>{{ message.text }}</p>
+                <small>{{ message.time }}</small>
+            </div>
+        {% endfor %}
+    </div>
+    <input type="text" id="myInput" placeholder="Type your message here" />
+    <button id="sendMessage" type="button">Send</button>
+    <button id="openWebSocket" type="button">Open WebSocket</button>
+    <div id="output"></div>
+</body>
+</html>
+
