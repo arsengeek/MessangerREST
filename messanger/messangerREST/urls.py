@@ -11,8 +11,9 @@ urlpatterns = [
     path('group/<int:pk>', RoomDetailView.as_view(), name='groupdetail'),
     path('groups/', RoomList.as_view(), name='groups'),
     path('profil', ProfilView.as_view(), name='profilView'),
+    # path('user/<int:pk>', MessageCreateUserView.as_view(), name='create_message_user'),
     # path('add_user_to_room/', AddUserToRoomView.as_view(), name='add_user_to_room'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,7 +7,10 @@
     <script src="{% static 'js/script.js' %}" defer></script>
 </head>
 <body>
-    <h2>Group Chat "{{ room }}"</h2> 
+    <p id='requestUser'>{{ request.user.username }}</p>
+    <header class='header'> 
+        <h2>Group Chat "{{ room }}"</h2> 
+    </header>
     <p id="roomId">{{ room.id }}</p>
     <div id="messages">
         {% for message in messages %}
@@ -18,10 +21,14 @@
             </div>
         {% endfor %}
     </div>
-    <input type="text" id="myInput" placeholder="Type your message here" />
-    <button id="sendMessage" type="button">Send</button>
-    <button id="openWebSocket" type="button">Open WebSocket</button>
-    <div id="output"></div>
+    <p class='newMessage'> Новые сообщения</p>
+    <div id="output"></div><br>
+
+        <div class='input'>
+            <input type="text" id="myInput" placeholder="Type your message here" />
+            <button id="sendMessage" type="button"></button>
+            {% comment %} <button id="openWebSocket" type="button">Open WebSocket</button> {% endcomment %}
+    </div>
 </body>
 </html>
 

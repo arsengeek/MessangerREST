@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Profile</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
-        <div>
-            You Name {{user.username}}
-            You Photo <img class='image' src = "{{user_messanger.image}}">
-        </div>
+    <div class='profilView'>
+        Your Name - {{ user.username }}<br>
+        Your Photo: 
+        {% if user_messanger.image %}
+            <img class='image' src="{{ user_messanger.image.url }}" alt="User Photo">
+        {% else %}
+            <p>No image available</p>
+        {% endif %}
+    </div>
 </body>
 </html>

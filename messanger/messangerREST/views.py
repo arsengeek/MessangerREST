@@ -41,7 +41,6 @@ class ProfilView(LoginRequiredMixin, DetailView):
 
     def get_object(self, queryset=None):
         user = self.request.user
-
         return UserMessanger.objects.get(name=user)
 
 
