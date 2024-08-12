@@ -7,8 +7,19 @@ class MessageForm(forms.ModelForm):
         fields = ['text']
 
 class UserMessangerUpdateForm(forms.ModelForm):
-    username = forms.CharField(max_length=150, required=False)
-
+    username = forms.CharField(
+        max_length=150, 
+        required=False,
+        label="New Username",
+        widget=forms.TextInput(attrs={'placeholder': 'Enter new username'})  
+        )
+    
+    image = forms.ImageField(
+        required=False, 
+        label="Profile Picture", 
+        widget=forms.ClearableFileInput(attrs={'class': 'custom-class'})
+        
+    )
 
     class Meta:
         model = UserMessanger

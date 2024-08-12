@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     user-select: none;
+    text-decoration: none;
 }
 
 
@@ -19,13 +20,7 @@ body {
     height:5vw;
     background-color: black;
 }
-h2 {
-    width: 100%;
-    position: fixed;
-    z-index: 1;
-    text-align: center;
-    margin-top: 2vw;
-} 
+
 .newMessage {
 
     padding: 0;
@@ -70,9 +65,7 @@ h2 {
     right: 3vw; 
     color: rgb(48, 12, 255);
 }
-a {
-    font-size:1vw ;
-}
+
 .groups {
     position: fixed; 
     width: 100vw;
@@ -135,6 +128,95 @@ a {
     display: flex;
     width: 100%;
     justify-content: center;
-    margin-top: 10vw;
+    margin-top: 15vw;
     font-size: 4vw;
+}
+.title {
+    color: white;
+    display: flex;
+    justify-content: center;
+    margin-top: 4vw;
+    font-size: 4vw;
+
+}
+.title span {
+    color: purple;
+} 
+.logo {
+    position: absolute;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    width: 30vw;
+    height: 10vw;
+    margin: 4vw;
+    transition: .1s ease-in;
+}
+.logo:hover {
+    position: absolute;
+    color: white;
+    text-shadow: 0px 0px 10px white;
+    transition: .1s ease-in;
+    display: flex;
+    justify-content: flex-start;
+    width: 30vw;
+    height: 10vw;
+    margin: 4vw;
+}
+.logo a {
+    font-size: 3vw;
+    color: white;
+    text-decoration: none;
+}
+.logo a span {
+    color: purple;
+}
+.rooms {
+    position: absolute;
+    display: grid;
+    grid-template-columns: auto;
+    gap:1vw;
+    margin-top: 10vw;
+    margin-left: 40vw;
+    font-size: 1.4vw;
+    text-decoration: none;
+}
+.title-groups {
+    display: flex;
+    justify-content: center;
+    margin-top: 4vw;
+    font-size: 2vw;
+}
+.title-groups a {
+    color: blueviolet;
+    font-size: 1.5vw;
+    text-decoration: none;
+}
+.createGroup {
+    width: 100%;
+    text-align: center;
+    color: white;
+    margin-top: 20vw;
+    font-size: 3vw;
+
+}
+.title-group {
+    margin-top: 3vw;
+    display: flex;
+    justify-content: center;
+}
+.createGroup input {
+    width: 13vw;
+    height: 4vw;
+}
+.createGroup button {
+    width: 8vw;
+    height: 2vw;
+}
+.admins {
+    position: fixed;
+    width: 20vw;
+    height: 20vw;
+    color: white;
+    margin-top: 20vw;
 }

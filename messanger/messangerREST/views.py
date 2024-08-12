@@ -32,7 +32,7 @@ class Profil(LoginRequiredMixin, UpdateView):
         return UserMessanger.objects.get(name=user)  
 
     def get_success_url(self):
-        return '/messanger/home/'
+        return '/messanger/profil'
     
 class ProfilView(LoginRequiredMixin, DetailView):
     model = UserMessanger
@@ -110,13 +110,13 @@ class RoomCreate(LoginRequiredMixin, CreateView):
         response = super().form_valid(form)
         user_messanger = UserMessanger.objects.get(name_id=self.request.user.id)
         room = form.instance
-        room.admin.set([user_messanger])
+        room.admin.set([user_messanger]) 
         room.save()
         room.members.add(user_messanger) 
         return response
 
     def get_success_url(self):
-        return reverse_lazy('groupdetail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('create_message', kwargs={'pk': self.object.pk})
     
     # def post(self, request,  **kwargs):
     #     return redirect('groups')
@@ -128,9 +128,12 @@ class RoomDetailView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['room'] = Room.objects.get(pk=self.kwargs['pk'])
+        room = Room.objects.get(pk=self.kwargs['pk'])
+        context['room'] = room
+        # Check the content of room.admin
+        print(room.admin.all())  # Print admin data to console for debugging
         return context
-    
+
 class RoomList(ListView):
     model = Room
     ordering = ''

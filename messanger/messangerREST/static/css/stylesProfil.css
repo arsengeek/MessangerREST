@@ -1,0 +1,24 @@
+div {
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+body {
+    background-color: black;
+    color: white;
+}
+h1 {
+    display: flex;
+    justify-content: center;
+}
+button {
+    width: 10vw;
+    height: 2vw;
+    font-size: 1.4vw;
+    display: flex;
+    justify-content: center;
+    margin-left: 6vw;
+} 
+p {
+    margin: 3vw;
+}

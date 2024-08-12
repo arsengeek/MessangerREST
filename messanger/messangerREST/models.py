@@ -20,6 +20,11 @@ class UserMessanger(models.Model):
 
     def __str__(self):
         return self.name.username
+
+    def get_image_url(self):
+        if self.image:
+            return self.image.url
+        return None
     
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE, default=1)

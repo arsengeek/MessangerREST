@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Profile</title>
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    <div class='profilView'>
-        Your Name - {{ user.username }}<br>
-        Your Photo: 
-        {% if user_messanger.image %}
-            <img class='image' src="{{ user_messanger.image.url }}" alt="User Photo">
-        {% else %}
-            <p>No image available</p>
-        {% endif %}
-    </div>
-</body>
+	<head>
+		<title>Profile</title>
+		{% load static %}
+		<link
+			rel="stylesheet"
+			type="text/css"
+			href="{% static 'css/styles.css' %}"
+		/>
+	</head>
+	<body>
+		<footer class='logo'>
+			<a href="{% url 'chats' %}">Messanger<span>REST</span></a>
+		</footer>
+		<div class="profilView">
+			Your Name - {{ user.username }}<br />
+			Your Photo: {% if user_messanger.image %}
+    <img class='image' src="{{ user_messanger.image.url }}" alt="User Photo">
+{% else %}
+    <img class='image' src="{% static 'images/photo_2024-06-13_23-39-09.jpg' %}" alt="Default Photo">
+{% endif %}
+<a href="{% url 'profil' user_messanger.id%}">Edit Profil</a>
+		</div>
+	</body>
 </html>

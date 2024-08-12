@@ -6,11 +6,31 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <script src="{% static 'js/script.js' %}" defer></script>
 </head>
+        
 <body>
+    
     <p id='requestUser'>{{ request.user.username }}</p>
     <header class='header'> 
         <h2>Group Chat "{{ room }}"</h2> 
     </header>
+    <div class='admins'>
+        {% if room.admin.all %}
+            <ul>
+                {% for admin in room.admin.all %}
+                    {% if admin.name.id == request.user.id%}
+                        <li>Вы Администратор</li>
+                    {% else %}
+                        <p>Admin:{{admin.name.username}}</p>
+                    {% endif %}
+                {% empty %}
+                    <li>No admin assigned</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No admin assigned</p>
+        {% endif %}
+    </div>
+    
     <p id="roomId">{{ room.id }}</p>
     <div id="messages">
         {% for message in messages %}
@@ -29,6 +49,8 @@
             <button id="sendMessage" type="button"></button>
             {% comment %} <button id="openWebSocket" type="button">Open WebSocket</button> {% endcomment %}
     </div>
+    
+    
 </body>
 </html>
 

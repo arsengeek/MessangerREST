@@ -6,11 +6,14 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <h2>All Groups</h2>
+    <h2 class='title-groups'>All Groups</h2>
+    <div class='rooms'>
+        {% for room in rooms %}
+            <a href="{% url 'create_message' room.id %}">{{ room.name }}<br><br></a>
+        {% endfor %}
+        <a href="{% url 'creategroup' %}">Create group</a>
+    </div>
     
-    {% for room in rooms %}
-        <a href="{% url 'create_message' room.id %}">{{ room.name }}<br><br></a>
-    {% endfor %}
 
 </body>
 </html>
