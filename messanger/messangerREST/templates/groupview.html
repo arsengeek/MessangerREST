@@ -11,8 +11,8 @@
         {% for room in rooms %}
             <a href="{% url 'create_message' room.id %}">{{ room.name }}<br><br></a>
         {% endfor %}
-        <a href="{% url 'creategroup' %}">Create group</a>
     </div>
+    <a class='create-group' href="{% url 'creategroup' %}">Create group</a>
     
 
 </body>

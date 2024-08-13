@@ -8,19 +8,27 @@
 </head>
         
 <body>
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
     <p id='requestUser'>{{ request.user.username }}</p>
     <header class='header'> 
         <h2>Group Chat "{{ room }}"</h2> 
+        <a href="{% url 'chats' %}" class='title-messanger'>Messanger<span>REST</span></a>
+        
     </header>
     <div class='admins'>
         {% if room.admin.all %}
             <ul>
                 {% for admin in room.admin.all %}
                     {% if admin.name.id == request.user.id%}
-                        <li>Вы Администратор</li>
+                        <li style= "margin-left: 3vw;">Вы Администратор</li>
+                        <a style= "margin-left: 3vw;" href="{% url 'delete' room.id %}"> Удалить группу </a>
+                        <a style= "margin-left: 9vw; margin-top:3vw;" href="{% url 'edit' room.id %}"> Изменить группу </a>
                     {% else %}
-                        <p>Admin:{{admin.name.username}}</p>
+                        <p style= "margin-left: 3vw;">Admin:{{admin.name.username}}</p>
                     {% endif %}
                 {% empty %}
                     <li>No admin assigned</li>

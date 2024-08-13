@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import UpdateView,CreateView, ListView, FormView, DetailView
+from django.views.generic import UpdateView,CreateView, ListView, FormView, DetailView, DeleteView
 from .models import UserMessanger, Message, Room
-from .forms import MessageForm, UserMessangerUpdateForm, CreateGroup
+from .forms import MessageForm, UserMessangerUpdateForm, CreateGroup, RoomUpdateForm
 from django.http import JsonResponse
 from django.contrib.auth.mixins import LoginRequiredMixin,PermissionRequiredMixin
 from django.urls import reverse_lazy
@@ -9,6 +9,12 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.http import request
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from .models import Room, UserMessanger
+from .forms import CreateGroup  
+from django.http import HttpResponseForbidden
 
 
 class Profil(LoginRequiredMixin, UpdateView):
@@ -42,6 +48,12 @@ class ProfilView(LoginRequiredMixin, DetailView):
     def get_object(self, queryset=None):
         user = self.request.user
         return UserMessanger.objects.get(name=user)
+
+class UsersCheck(LoginRequiredMixin, ListView):
+    model = UserMessanger
+    ordering = ''
+    template_name = 'allUsers.html'
+    context_object_name = 'users'
 
 
 class MessageCreateView(LoginRequiredMixin, CreateView):
@@ -94,11 +106,7 @@ class MessageList(ListView):
     context_object_name = 'messages'
     paginate_by=1000
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
-from .models import Room, UserMessanger
-from .forms import CreateGroup  # Замените на вашу форму
+
 
 class RoomCreate(LoginRequiredMixin, CreateView):
     model = Room
@@ -130,10 +138,43 @@ class RoomDetailView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         room = Room.objects.get(pk=self.kwargs['pk'])
         context['room'] = room
-        # Check the content of room.admin
-        print(room.admin.all())  # Print admin data to console for debugging
         return context
 
+class RoomDelete(LoginRequiredMixin, DeleteView):
+    model=Room
+    success_url = reverse_lazy('chats')
+    template_name = 'deleteGroup.html'    
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.room = Room.objects.get(pk=self.kwargs['pk'])
+        context['room'] = Room.objects.get(pk=self.kwargs['pk'])
+        
+        return context
+    
+    def delete(self, request, *args, **kwargs):
+        room = self.get_object()
+        if request.user.usermessanger not in room.admin.all():
+            return HttpResponseForbidden("У вас нет прав на удаление этой группы.")
+        return super().delete(request, *args, **kwargs)
+    
+    
+class RoomEdit(UpdateView):
+    form_class = RoomUpdateForm
+    model = Room
+    template_name = 'groupEdit.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.room = Room.objects.get(pk=self.kwargs['pk'])
+        context['room'] = Room.objects.get(pk=self.kwargs['pk'])
+        
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('create_message', kwargs={'pk': self.object.pk})
+
+    
 class RoomList(ListView):
     model = Room
     ordering = ''

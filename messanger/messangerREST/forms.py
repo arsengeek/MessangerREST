@@ -44,6 +44,33 @@ class UserMessangerUpdateForm(forms.ModelForm):
                 user_messanger.save()
         return user_messanger
 
+class RoomUpdateForm(forms.ModelForm):
+    name = forms.CharField(
+        max_length=150, 
+        required=False,
+        label="New Name",
+        widget=forms.TextInput(attrs={'placeholder': 'Enter new room name'})  
+    )
+
+    class Meta:
+        model = Room
+        fields = ['name']  
+
+    def __init__(self, *args, **kwargs):
+        room = kwargs.pop('room', None)  
+        super().__init__(*args, **kwargs)
+        if room:
+            self.fields['name'].initial = room.name
+
+    def save(self, commit=True):
+        room = super().save(commit=False)
+        room.name = self.cleaned_data['name']
+        
+        if commit:
+            room.save()
+        
+        return room
+
 class CreateGroup(forms.ModelForm):
     class Meta:
         model = Room

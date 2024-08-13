@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>Delete group</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesDelete.css' %}">
+</head>
+<body>
+    {% if room.admin.all %}
+                {% for admin in room.admin.all %}
+                    {% if admin.name.id == request.user.id%}
+                        <h2>Delete group {{ room }}</h2>
+                        <form action='' method='post'>
+                            {% csrf_token %}
+                            <p>Вы точно хотите удалить группу {{ room.name }}?</p>
+                            <input style="margin-left: 48vw" type='submit' value='Удалить'>
+                        </form>
+                    {% else %}
+                        <p>У вас нет на это прав</p>
+                    {% endif %}
+                {% empty %}
+                    <h2>No admin assigned</h2>
+                {% endfor %}
+        {% else %}
+            <p>No admin assigned</p>
+        {% endif %}
+
+</body>
+</html>

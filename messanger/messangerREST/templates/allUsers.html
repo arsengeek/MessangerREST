@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MyprofilAndCheckAllGroups</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <a href="{% url 'chats' %}" class='title-messanger'>Messanger<span>REST</span></a>
+    <h1 style="display:flex; justify-content: center;">All Users</h1>
+        <div class='allusers'>
+            {% for user in users %}
+             <p>{{user}}</p>
+             {% endfor %}
+        </div>
+</body>
+</html>
